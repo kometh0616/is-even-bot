@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-
 require 'discordrb'
-require 'json'
+require 'yaml'
 
 def not_number?(string)
   false if Float string
@@ -9,11 +7,10 @@ rescue StandardError
   true
 end
 
-file = File.read './config.json'
-config = JSON.parse file
+Config = YAML.load_file './config.yml'
 
-token = config['token']
-prefix = config['prefix']
+token = Config['token']
+prefix = Config['prefix']
 
 bot = Discordrb::Commands::CommandBot.new token: token, prefix: prefix
 
